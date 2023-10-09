@@ -15,7 +15,11 @@ module.exports = {
                 type: Sequelize.BIGINT,
                 allowNull: false
             },
-            userId: {
+            username: {
+                type: Sequelize.STRING,
+                allowNull: false
+            },
+            chatId: {
                 type: Sequelize.BIGINT,
                 allowNull: false
             }

@@ -17,7 +17,11 @@ ChannelModel.init(
             type: Sequelize.BIGINT,
             allowNull: false
         },
-        userId: {
+        username: {
+            type: Sequelize.STRING,
+            allowNull: false
+        },
+        chatId: {
             type: Sequelize.BIGINT,
             allowNull: false
         }
@@ -66,13 +70,10 @@ channel.findAllChannelAdmins = async (channelId) => {
         });
 };
 
-channel.findAllAdminChannels = async (userId) => {
-    if (!channel.isId(userId)) {
-        return false;
-    }
+channel.findAllAdminChannels = async (username) => {
     return await ChannelModel.findAll({
         where: {
-            userId: userId
+            username: username
         }
     })
         .then((record) => {
@@ -103,19 +104,54 @@ channel.findAll = async () => {
         });
 };
 
-channel.link = async (channelId, userId) => {
+channel.link = async (channelId, username, chatId) => {
     return await ChannelModel.findOne({
         where: {
             channelId,
-            userId
+            username,
+            chatId
         }
     })
         .then(async (rows) => {
-            console.log('rows ', rows);
             if (rows == null) {
                 return await ChannelModel.create({
-                    userId: userId,
-                    channelId: channelId
+                    username: username,
+                    channelId: channelId,
+                    chatId
+                })
+                    .then((rows) => {
+                        console.log(rows);
+                        return true;
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        return null;
+                    });
+            }
+            return false;
+        })
+        .catch((err) => {
+            console.log(err);
+            return null;
+        });
+};
+
+channel.unlink = async (channelId, username, chatId) => {
+    return await ChannelModel.findOne({
+        where: {
+            channelId,
+            username,
+            chatId
+        }
+    })
+        .then(async (rows) => {
+            if (rows != null) {
+                return await ChannelModel.destroy({
+                    where: {
+                        username,
+                        channelId,
+                        chatId
+                    }
                 })
                     .then((rows) => {
                         console.log(rows);
@@ -130,57 +166,5 @@ channel.link = async (channelId, userId) => {
         })
         .catch((err) => null);
 };
-
-// author.create = async (options) => {
-//     if (!options.uaName && !options.enName && !options.jpName) {
-//         return false;
-//     }
-//     const description = options.description ? options.description : null;
-//     const photo = options.photo ? options.photo : '/images/noimage.jpg';
-//     const birdthday = options.birdthday ? options.birdthday : null;
-//     return await AuthorModel.create({
-//         uaName: options.uaName,
-//         enName: options.enName,
-//         jpName: options.jpName,
-//         description: description,
-//         photo: photo,
-//         birthday: birdthday,
-//         createdBy: User.user.id
-//     })
-//         .then((record) => {
-//             if (record) {
-//                 return record;
-//             } else {
-//                 return false;
-//             }
-//         })
-//         .catch((err) => {
-//             console.log(err);
-//             return false;
-//         });
-// };
-
-// author.assignAuthor = async (authorId, titleId, options) => {
-//     const description = options && options.description ? options.description : null;
-//     const role = options && options.role ? options.role : null;
-//     return await AuthorsBind.create({
-//         authorId: authorId,
-//         ranobeId: titleId,
-//         description: description,
-//         role: role,
-//         createdBy: User.user.id
-//     })
-//         .then((record) => {
-//             if (record) {
-//                 return record;
-//             } else {
-//                 return false;
-//             }
-//         })
-//         .catch((err) => {
-//             console.log(err);
-//             return false;
-//         });
-// };
 
 export default channel;
