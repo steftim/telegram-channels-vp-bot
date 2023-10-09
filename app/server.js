@@ -59,7 +59,7 @@ bot.onText(/^\/i(@\w+)?(?:\s+(\S+))?$/, async (msg, match) => {
                 });
         })
     );
-    bot.sendMessage(msg.chat.id, 'Нічо не знайшов 😭', {
+    bot.sendMessage(msg.chat.id, 'Я нічо не знайшов 😭', {
         reply_to_message_id: msg.message_id
     });
 });
@@ -351,6 +351,11 @@ bot.onText(/^\/vp(@\w+)?(?:\s+(\S+))?$/, async (msg, match) => {
         })
     );
 
+    if (ownList == '' || replayList == '') {
+        return bot.sendMessage(msg.chat.id, 'Я нічо не знайшов 😭', {
+            reply_to_message_id: msg.message_id
+        });
+    }
     bot.sendMessage(msg.chat.id, `${ownList}============\n\n${replayList}`, {
         reply_to_message_id: msg.message_id
     });
