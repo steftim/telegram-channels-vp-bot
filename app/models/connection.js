@@ -15,10 +15,7 @@ if (config.use_env_variable) {
     sequelize = new Sequelize(config.database, config.username, config.password, {
         database: 'htyvbot',
         host: '127.0.0.1',
-        dialect: 'mariadb',
-        logging: (str) => {
-            console.log('LOG:: ', str);
-        }
+        dialect: 'mariadb'
     });
 }
 

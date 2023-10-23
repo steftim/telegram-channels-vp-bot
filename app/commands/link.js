@@ -9,7 +9,6 @@ const link = async (bot) => {
 
     //
     // reply to message >>  /link @channel
-    // reply to message >>  /link@botname @channel
     //
     bot.onText(/\/link(@\w+)?(?:\s+(\S+))?/, async (msg, match) => {
         await bot

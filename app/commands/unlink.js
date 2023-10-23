@@ -9,7 +9,6 @@ const unlink = async (bot) => {
 
     //
     //  /unlink @channel @username
-    //  /unlink@botname @channel @username
     //
     //  match[1] = @botname
     //  match[2] = @channel

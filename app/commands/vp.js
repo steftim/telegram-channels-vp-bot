@@ -1,11 +1,6 @@
 import channel from '../models/channel.js';
 
 const vp = async (bot) => {
-    //
-    //
-    //      Do a vp
-    //
-    //
     bot.onText(/^\/vp(@\w+)?(?:\s+(\S+))?$/, async (msg, match) => {
         let replay;
         if (!!match[2]) {

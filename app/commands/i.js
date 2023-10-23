@@ -15,7 +15,10 @@ const i = async (bot) => {
             );
             return;
         }
-        Promise.all(
+
+        const chans = new Array();
+
+        await Promise.all(
             await chann.map(async (item) => {
                 await bot
                     .getChat(item.channelId)
@@ -23,24 +26,19 @@ const i = async (bot) => {
                         if (chat.type == 'channel') {
                             bot.getChatMemberCount(item.channelId)
                                 .then((members) => {
-                                    bot.sendMessage(
-                                        msg.chat.id,
+                                    chans.push(
                                         `Назва: ${
                                             chat.title
                                         }\nКількість підписників: ${members}\nЛінк: t.me/${
                                             chat.username ? chat.username : chat.invite_link
-                                        }`,
-                                        {
-                                            reply_to_message_id: msg.message_id
-                                        }
+                                        }`
                                     );
                                 })
                                 .catch(() => {
-                                    bot.sendMessage(msg.chat.id, 'Канал не знайдено!', {
-                                        reply_to_message_id: msg.message_id
-                                    });
+                                    chans.push(false);
                                 });
                         } else {
+                            chans.push(false);
                             bot.sendMessage(msg.chat.id, 'Канал не знайдено!', {
                                 reply_to_message_id: msg.message_id
                             });
