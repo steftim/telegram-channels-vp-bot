@@ -1,11 +1,10 @@
 {
-  "name": "htyvbot-server",
-  "version": "1.0.0",
+  "name": "telegram-channels-vp-bot",
+  "version": "1.0.1",
   "main": "index.js",
-  "repository": "git@github.com:steftim/htyvbot-server.git",
+  "repository": "git@github.com:steftim/telegram-channels-vp-bot.git",
   "author": "Andriiets Bohdan <steftim.an@gmail.com>",
   "license": "MIT",
-  "private": true,
   "type": "module",
   "scripts": {
     "start": "node ./app/server.js",
@@ -14,15 +13,17 @@
   },
   "dependencies": {
     "dotenv": "^16.3.1",
-    "eslint": "^8.51.0",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-prettier": "^5.0.0",
     "express": "^4.18.2",
     "mariadb": "^3.2.1",
     "node-telegram-bot-api": "^0.63.0",
-    "nodemon": "^3.0.1",
-    "prettier": "^3.0.3",
     "sequelize": "^6.33.0",
     "sequelize-cli": "^6.6.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.51.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "nodemon": "^3.0.1",
+    "prettier": "^3.0.3"
   }
 }
